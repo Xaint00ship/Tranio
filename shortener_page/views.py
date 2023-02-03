@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from shortener_api import models
 from django.shortcuts import render

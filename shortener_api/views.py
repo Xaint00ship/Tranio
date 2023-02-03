@@ -24,6 +24,7 @@ def get_num_click_url_stats(request, hash_url):# получение всех к�
     try:
         date_list_array = models.Clicks.objects.filter(hash_url=hash_url).values('date')
         unic_date_array = []
+
         # Получение массива со всеми датами для хеша .
         for date in date_list_array:
             if str(date['date']) in unic_date_array:
@@ -35,12 +36,13 @@ def get_num_click_url_stats(request, hash_url):# получение всех к�
         count_date_click_list = dict()
         for unic_date in unic_date_array:
             count_date_click_list[unic_date] = 0
+
         # Заполнитель словаря по количествам входов даты('ДАТА:количество входов')
         for unic_date in unic_date_array:
             for date_list in date_list_array:
                 if unic_date == str(date_list['date']):
                     count_date_click_list[unic_date] += 1
-
+                    
         return HttpResponse(json.dumps(count_date_click_list), content_type='application/json')
     except:
         return HttpResponse(json.dumps({'date': 'HASH is invalid'}), content_type='application/json')
